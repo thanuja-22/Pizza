@@ -14,7 +14,7 @@ const Emitter = require('events')
 
 
 //database connection
-const url='mongodb://localhost/pizza';
+const url=process.env.DB_URL;
 mongoose.connect(url,{useNewUrlParser:true,useCreateIndex:true,useUnifiedTopology:true,useFindandModify:true});
 const connection=mongoose.connection;
 connection.once('open',()=>{
@@ -30,7 +30,7 @@ app.use(session({
    secret:process.env.COOKIE_SECRET,
    resave:false,
    store:MongoDbStore.create({
-     mongoUrl:'mongodb://localhost/pizza'
+     mongoUrl:url
    }),
    saveUninitialized:false,
    cookie:{
